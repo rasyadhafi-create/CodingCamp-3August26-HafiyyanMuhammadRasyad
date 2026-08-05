@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DomPin - Dompet Pintar untuk mengelola keuangan harian secara intuitif, modern, dan bijak">
+    <title>DomPin 👛 - Dompet Pintar</title>
+    
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <img src="https://ui-avatars.com/api/?name=User&background=FFA500&color=fff" alt="Profile" class="profile-pic">
+        </div>
+        <div class="header-center">
+            <h1 class="logo">DomPin 👛</h1>
+        </div>
+        <div class="header-right">
+            <button class="icon-btn" id="notificationBtn" aria-label="Notifications">
+                <span class="material-icons">notifications</span>
+            </button>
+            <button class="icon-btn" id="themeToggle" aria-label="Toggle theme">
+                <span class="material-icons">dark_mode</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content" id="appContent">
+        
+        <!-- Page 1: Home -->
+        <section id="page-home" class="page active">
+            <div class="container">
+                
+                <!-- Period Selector -->
+                <div class="period-selector">
+                    <label for="periodSelect">Periode</label>
+                    <select id="periodSelect" class="period-dropdown">
+                        <!-- Dynamically generated -->
+                    </select>
+                </div>
+
+                <!-- Previous Month Indicator -->
+                <div class="previous-month" id="previousMonth">
+                    <span class="label">Bulan Lalu</span>
+                    <span class="amount" id="previousMonthAmount">Rp 0</span>
+                </div>
+
+                <!-- Spending Alert (hidden by default) -->
+                <div id="spendingAlert" class="alert alert-warning hidden">
+                    <span class="material-icons">warning</span>
+                    <div class="alert-content">
+                        <strong>Spending Limit Reached!</strong>
+                        <p>Kamu sudah melebihi budget bulan ini.</p>
+                    </div>
+                </div>
+
+                <!-- Total Balance Card -->
+                <div class="balance-card">
+                    <h2 class="balance-title">Total Pengeluaran Bulan Ini</h2>
+                    <div class="balance-amount" id="totalBalance">Rp 0</div>
+                    <div class="balance-percentage">
+                        <div class="percentage-bar">
+                            <div class="percentage-fill" id="percentageFill" style="width: 0%"></div>
+                        </div>
+                        <span class="percentage-text" id="percentageText">0%</span>
+                    </div>
+                </div>
+
+                <!-- Add Transaction Form -->
+                <div class="form-card">
+                    <h3 class="form-title">Tambah Transaksi Baru</h3>
+                    <form id="transactionForm">
+                        <div class="form-group">
+                            <label for="itemName">Nama Barang</label>
+                            <input type="text" id="itemName" placeholder="Masukkan nama barang" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="itemAmount">Jumlah (Rp)</label>
+                            <input type="number" id="itemAmount" placeholder="0" min="0" step="1000" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="itemCategory">Kategori</label>
+                            <select id="itemCategory" required>
+                                <!-- Dynamically generated from categories -->
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <span class="material-icons">add_circle</span>
+                            Tambah Transaksi
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Pie Chart Section -->
+                <div class="chart-card">
+                    <h3 class="chart-title">Distribusi Pengeluaran</h3>
+                    <div class="chart-container">
+                        <canvas id="pieChart"></canvas>
+                    </div>
+                    <div id="emptyChartMessage" class="empty-state hidden">
+                        <span class="material-icons">donut_large</span>
+                        <p>Belum ada data untuk ditampilkan</p>
+                    </div>
+                </div>
+
+                <!-- Transaction List -->
+                <div class="transaction-card">
+                    <div class="transaction-header">
+                        <h3>Riwayat Transaksi</h3>
+                        <select id="sortSelect" class="sort-dropdown">
+                            <option value="newest">Terbaru</option>
+                            <option value="highest">Tertinggi</option>
+                            <option value="lowest">Terendah</option>
+                            <option value="category">Kategori</option>
+                        </select>
+                    </div>
+                    <div class="transaction-list" id="transactionList">
+                        <!-- Dynamically generated -->
+                    </div>
+                    <div id="emptyTransactionMessage" class="empty-state">
+                        <span class="material-icons">receipt_long</span>
+                        <p>Belum ada transaksi</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Page 2: Analysis -->
+        <section id="page-analysis" class="page">
+            <div class="container">
+                <h2 class="page-title">Analysis</h2>
+                <p class="page-subtitle">Visualizer Section</p>
+
+                <!-- Line Chart Section -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div>
+                            <h3>Monthly Spend</h3>
+                            <p class="subtitle">Current Month</p>
+                        </div>
+                        <div class="spend-info">
+                            <div class="spend-amount" id="currentMonthSpend">Rp 4.5M</div>
+                            <div class="spend-change" id="spendChange">-12%</div>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="lineChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Resource Usage Section -->
+                <div class="resource-card">
+                    <h3>Resource Usage</h3>
+                    <div id="resourceUsageList">
+                        <!-- Dynamically generated -->
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Page 3: Budgets -->
+        <section id="page-budgets" class="page">
+            <div class="container">
+                <h2 class="page-title">Budgets</h2>
+                
+                <!-- Monthly Budget -->
+                <div class="budget-card">
+                    <h3>Budget Bulanan</h3>
+                    <div class="form-group">
+                        <label for="monthlyBudgetInput">Total Budget per Bulan</label>
+                        <input type="number" id="monthlyBudgetInput" placeholder="Masukkan budget bulanan" min="0" step="100000">
+                    </div>
+                    <button class="btn btn-primary" id="saveBudgetBtn">Simpan Budget</button>
+                </div>
+
+                <!-- Category Budgets -->
+                <div class="budget-card">
+                    <h3>Budget per Kategori</h3>
+                    <div id="categoryBudgetList">
+                        <!-- Dynamically generated -->
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Page 4: Settings -->
+        <section id="page-settings" class="page">
+            <div class="container">
+                <h2 class="page-title">Settings</h2>
+
+                <!-- Theme Setting -->
+                <div class="settings-card">
+                    <h3>Tema Aplikasi</h3>
+                    <div class="theme-toggle-container">
+                        <span>Light</span>
+                        <label class="switch">
+                            <input type="checkbox" id="themeSwitch">
+                            <span class="slider"></span>
+                        </label>
+                        <span>Dark</span>
+                    </div>
+                </div>
+
+                <!-- Category Management -->
+                <div class="settings-card">
+                    <h3>Kelola Kategori</h3>
+                    <div id="categoryManagementList">
+                        <!-- Dynamically generated -->
+                    </div>
+                    <button class="btn btn-secondary" id="addCategoryBtn">
+                        <span class="material-icons">add</span>
+                        Tambah Kategori Baru
+                    </button>
+                </div>
+
+                <!-- Data Management -->
+                <div class="settings-card">
+                    <h3>Data Management</h3>
+                    <button class="btn btn-secondary" id="exportDataBtn">
+                        <span class="material-icons">download</span>
+                        Export Data
+                    </button>
+                    <button class="btn btn-secondary" id="importDataBtn">
+                        <span class="material-icons">upload</span>
+                        Import Data
+                    </button>
+                    <input type="file" id="importFileInput" accept=".json" style="display: none;">
+                    <button class="btn btn-danger" id="clearDataBtn">
+                        <span class="material-icons">delete_forever</span>
+                        Hapus Semua Data
+                    </button>
+                </div>
+
+                <!-- About -->
+                <div class="settings-card">
+                    <h3>Tentang DomPin</h3>
+                    <p><strong>DomPin - Dompet Pintar v1.0</strong></p>
+                    <p>Expense & Budget Visualizer</p>
+                    <p class="about-text">Solusi digital untuk mengelola keuangan harian secara intuitif, modern, dan bijak.</p>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <button class="nav-btn active" data-page="home" aria-label="Home">
+            <span class="material-icons">home</span>
+            <span class="nav-label">Home</span>
+        </button>
+        <button class="nav-btn" data-page="analysis" aria-label="Analysis">
+            <span class="material-icons">donut_large</span>
+            <span class="nav-label">Analysis</span>
+        </button>
+        <button class="nav-btn" data-page="budgets" aria-label="Budgets">
+            <span class="material-icons">account_balance_wallet</span>
+            <span class="nav-label">Budgets</span>
+        </button>
+        <button class="nav-btn" data-page="settings" aria-label="Settings">
+            <span class="material-icons">settings</span>
+            <span class="nav-label">Settings</span>
+        </button>
+    </nav>
+
+    <!-- Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    
+    <!-- Main Script -->
+    <script src="js/script.js"></script>
+</body>
+</html>
