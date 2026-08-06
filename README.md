@@ -1,12 +1,4 @@
 # DomPin 👛 - Dompet Pintar
-
-**Solusi Digital untuk Mengelola Keuangan Harian Secara Intuitif, Modern, dan Bijak**
-
----
-
-
-
-# DomPin 👛 - Dompet Pintar
 ## 📖 Tentang DomPin
 
 **DomPin** adalah singkatan dari **"Dompet Pintar"** — sebuah aplikasi web mobile-friendly yang dirancang untuk membantu pengguna mengelola keuangan harian secara intuitif, modern, dan bijak.
