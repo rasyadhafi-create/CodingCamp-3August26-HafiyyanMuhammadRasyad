@@ -42,7 +42,7 @@
     --space-xl: 32px;
     
     /* Typography */
-    --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --font-size-xs: 0.75rem;
     --font-size-sm: 0.875rem;
     --font-size-base: 1rem;
@@ -645,7 +645,7 @@ p { margin-bottom: var(--space-md); }
     margin-bottom: var(--space-md);
 }
 
-.usage-card .header {
+.usage-card .usage-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -888,4 +888,72 @@ input:checked + .slider:before {
     font-size: var(--font-size-sm);
     color: var(--text-secondary);
     line-height: 1.6;
+}
+
+
+/* === CATEGORY MODAL === */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    padding: var(--space-md);
+}
+
+.modal-box {
+    background-color: var(--bg-card);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    max-width: 400px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: var(--shadow-lg);
+}
+
+.modal-box h3 {
+    margin-bottom: var(--space-md);
+    color: var(--text-primary);
+}
+
+.emoji-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: var(--space-sm);
+    margin-top: var(--space-sm);
+}
+
+.emoji-btn {
+    font-size: var(--font-size-xl);
+    background-color: var(--bg-primary);
+    border: 2px solid transparent;
+    border-radius: var(--radius-md);
+    padding: var(--space-sm);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.emoji-btn:hover {
+    background-color: var(--border-color);
+}
+
+.emoji-btn.selected {
+    border-color: var(--primary-color);
+    background-color: var(--primary-light);
+}
+
+.modal-actions {
+    display: flex;
+    gap: var(--space-sm);
+    margin-top: var(--space-lg);
+}
+
+.modal-actions .btn {
+    flex: 1;
 }

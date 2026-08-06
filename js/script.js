@@ -777,7 +777,7 @@ function renderPieChart() {
     const ctx = canvas.getContext('2d');
     
     pieChartInstance = new Chart(ctx, {
-        type: 'doughnut',
+        type: 'pie',
         data: {
             labels: labels,
             datasets: [{
@@ -1109,7 +1109,7 @@ function renderResourceUsage() {
         usageCard.className = 'usage-card';
         
         usageCard.innerHTML = `
-            <div class="header">
+            <div class="usage-header">
                 <span class="icon">${category.emoji}</span>
                 <span class="name">${category.name}</span>
                 <span class="percentage">${percentage}%</span>
@@ -1285,49 +1285,93 @@ function renderCategoryManagement() {
 /**
  * Handle add new category
  */
-function handleAddNewCategory() {
-    const name = prompt('Nama kategori baru:');
-    
-    if (!name || name.trim() === '') {
+// Daftar emoji pilihan untuk kategori
+const CATEGORY_EMOJIS = [
+    '🍕', '🍔', '☕', '🛒', '🚗', '🚌', '⛽', '🧋',
+    '🎮', '🎬', '🎵', '📚', '💊', '🏥', '👕', '👟',
+    '📱', '💡', '🏠', '💰', '🎁', '✈️', '🐾', '💇'
+];
+
+let selectedCategoryEmoji = null;
+
+/**
+ * Open the category modal and render emoji picker
+ */
+function openCategoryModal() {
+    const modal = document.getElementById('categoryModal');
+    const emojiGrid = document.getElementById('emojiGrid');
+    const nameInput = document.getElementById('newCategoryName');
+
+    if (!modal || !emojiGrid) return;
+
+    // Reset state
+    selectedCategoryEmoji = null;
+    nameInput.value = '';
+    emojiGrid.innerHTML = '';
+
+    // Render emoji buttons
+    CATEGORY_EMOJIS.forEach(emoji => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'emoji-btn';
+        btn.textContent = emoji;
+        btn.addEventListener('click', () => {
+            selectedCategoryEmoji = emoji;
+            document.querySelectorAll('.emoji-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+        });
+        emojiGrid.appendChild(btn);
+    });
+
+    modal.classList.remove('hidden');
+}
+
+/**
+ * Close the category modal
+ */
+function closeCategoryModal() {
+    const modal = document.getElementById('categoryModal');
+    if (modal) modal.classList.add('hidden');
+}
+
+/**
+ * Confirm and save the new category
+ */
+function confirmAddCategory() {
+    const nameInput = document.getElementById('newCategoryName');
+    const name = nameInput.value.trim();
+
+    if (!name) {
+        alert('Nama kategori harus diisi');
         return;
     }
-    
-    const emoji = prompt('Emoji untuk kategori (contoh: 🛍️):');
-    
-    if (!emoji || emoji.trim() === '') {
+
+    if (!selectedCategoryEmoji) {
+        alert('Pilih emoji untuk kategori');
         return;
     }
-    
-    // Generate ID from name
+
     const id = name.toLowerCase().replace(/\s+/g, '-');
-    
-    // Check if ID already exists
+
     if (state.categories.some(c => c.id === id)) {
         alert('Kategori dengan nama ini sudah ada');
         return;
     }
-    
-    // Create new category
+
     const newCategory = {
         id: id,
-        name: name.trim(),
-        emoji: emoji.trim(),
+        name: name,
+        emoji: selectedCategoryEmoji,
         budget: 1500000,
-        color: '#' + Math.floor(Math.random()*16777215).toString(16) // Random color
+        color: '#' + Math.floor(Math.random() * 16777215).toString(16)
     };
-    
-    // Add category
+
     addCategory(newCategory);
-    
-    // Show notification
     showNotification('Kategori baru berhasil ditambahkan! ✨');
-    
-    // Re-render
+    closeCategoryModal();
     renderSettingsPage();
-    
-    // Update dropdowns on home page
     populateCategoryDropdown();
-    
+
     console.log('New category added:', newCategory);
 }
 
@@ -1714,10 +1758,21 @@ function setupFormListeners() {
     // Settings page
     const addCategoryBtn = document.getElementById('addCategoryBtn');
     if (addCategoryBtn) {
-        addCategoryBtn.addEventListener('click', handleAddNewCategory);
+        addCategoryBtn.addEventListener('click', openCategoryModal);
         console.log('Add category button listener attached');
     }
     
+    // Category modal buttons
+    const confirmCategoryBtn = document.getElementById('confirmCategoryBtn');
+    if (confirmCategoryBtn) {
+        confirmCategoryBtn.addEventListener('click', confirmAddCategory);
+    }
+
+    const cancelCategoryBtn = document.getElementById('cancelCategoryBtn');
+    if (cancelCategoryBtn) {
+        cancelCategoryBtn.addEventListener('click', closeCategoryModal);
+    }
+
     const categoryManagementList = document.getElementById('categoryManagementList');
     if (categoryManagementList) {
         categoryManagementList.addEventListener('click', (e) => {

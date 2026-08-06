@@ -9,6 +9,11 @@
     <!-- Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <!-- Styles -->
     <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -83,7 +88,7 @@
                         </div>
                         <div class="form-group">
                             <label for="itemAmount">Jumlah (Rp)</label>
-                            <input type="number" id="itemAmount" placeholder="0" min="0" step="1000" required>
+                            <input type="number" id="itemAmount" placeholder="0" min="0" step="1" required>
                         </div>
                         <div class="form-group">
                             <label for="itemCategory">Kategori</label>
@@ -273,6 +278,25 @@
             <span class="nav-label">Settings</span>
         </button>
     </nav>
+
+    <!-- Add Category Modal -->
+    <div id="categoryModal" class="modal-overlay hidden">
+        <div class="modal-box">
+            <h3>Tambah Kategori Baru</h3>
+            <div class="form-group">
+                <label for="newCategoryName">Nama Kategori</label>
+                <input type="text" id="newCategoryName" placeholder="Contoh: Belanja" maxlength="20">
+            </div>
+            <div class="form-group">
+                <label>Pilih Emoji</label>
+                <div class="emoji-grid" id="emojiGrid"></div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" id="cancelCategoryBtn">Batal</button>
+                <button class="btn btn-primary" id="confirmCategoryBtn">Simpan Kategori</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Chart.js Library -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
