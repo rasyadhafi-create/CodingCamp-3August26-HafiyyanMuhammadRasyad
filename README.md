@@ -103,7 +103,7 @@ Aplikasi ini berhasil menyelesaikan **SEMUA (5/5) Optional Challenges** yang dim
 ### Menjalankan Aplikasi
 
 #### Opsi 1: Live Demo
-Kunjungi: **[https://rasyadhafi-create.github.io/CodingCamp-3August26-HafiyyanMuhammadRasyad/]()**
+Kunjungi: **[[https://rasyadhafi-create.github.io/CodingCamp-3August26-HafiyyanMuhammadRasyad/]()**](https://rasyadhafi-create.github.io/CodingCamp-3August26-HafiyyanMuhammadRasyad/)**
 
 #### Opsi 2: Local Development
 ```bash
