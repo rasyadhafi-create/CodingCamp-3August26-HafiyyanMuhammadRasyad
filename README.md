@@ -92,12 +92,6 @@ Aplikasi ini berhasil menyelesaikan **SEMUA (5/5) Optional Challenges** yang dim
 | **Material Icons** | Icon system |
 | **LocalStorage API** | Data persistence (client-side) |
 
-**Kenapa Vanilla JS?**
-- Lightweight dan fast loading
-- No dependencies overhead
-- Full control atas code
-- Best untuk learning fundamentals
-
 ---
 
 ## 🚀 Getting Started
@@ -109,12 +103,12 @@ Aplikasi ini berhasil menyelesaikan **SEMUA (5/5) Optional Challenges** yang dim
 ### Menjalankan Aplikasi
 
 #### Opsi 1: Live Demo
-Kunjungi: **[https://[username].github.io/CodingCamp-3August26-HafiyyanMuhammadRasyad/]()**
+Kunjungi: **[https://rasyadhafi-create.github.io/CodingCamp-3August26-HafiyyanMuhammadRasyad/]()**
 
 #### Opsi 2: Local Development
 ```bash
 # Clone repository
-git clone https://github.com/[username]/CodingCamp-3August26-HafiyyanMuhammadRasyad.git
+git clone https://github.com/rasyadhafi-create/CodingCamp-3August26-HafiyyanMuhammadRasyad.git
 
 # Navigate to folder
 cd CodingCamp-3August26-HafiyyanMuhammadRasyad
